@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
@@ -10,6 +11,21 @@ import * as authService from "./services/authService";
 import CreateBusiness from "./pages/CreateBusiness/CreateBusiness";
 import * as businessService from "./services/businessService";
 import BusinessDetails from "./pages/BusinessDetails/BusinessDetails";
+=======
+
+import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import NavBar from './components/NavBar/NavBar'
+import Signup from './pages/Signup/Signup'
+import Login from './pages/Login/Login'
+import Landing from './pages/Landing/Landing'
+import Profiles from './pages/Profiles/Profiles'
+import ChangePassword from './pages/ChangePassword/ChangePassword'
+import * as authService from './services/authService'
+import CreateBusiness from './pages/CreateBusiness/CreateBusiness'
+import * as businessService from './services/businessService'
+import EditBusiness from './pages/EditBusiness/EditBusiness.jsx/EditBusiness'
+>>>>>>> d9364d5de5b289074e287b1b0123c0f6d7f6016b
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
@@ -48,6 +64,7 @@ const App = () => {
     navigate("/");
   };
 
+<<<<<<< HEAD
   const handleDeleteBusiness = (id) => {
     businessService
       .deleteOne(id)
@@ -68,15 +85,33 @@ const App = () => {
     });
   };
 
+=======
+  const handleEditBusiness = updatedBusinessData => {
+    businessService.update(updatedBusinessData)
+    .then(updatedBusiness => {
+      const newBusinessArray = businesses.map(business => business._id === updatedBusiness._id ? updatedBusiness : business)
+      setBusinesses(newBusinessArray)
+    })
+  }
+
+  const handleDeleteBusiness = id => {
+    businessService.deleteOne(id)
+    .then(deletedBusiness => setBusinesses(businesses.filter(business => business._id !== deletedBusiness._id)))
+  }
+
+>>>>>>> d9364d5de5b289074e287b1b0123c0f6d7f6016b
   return (
     <>
       <NavBar user={user} handleLogout={handleLogout} />
       <Routes>
+<<<<<<< HEAD
         <Route
           path="/"
           element={<Landing user={user} businesses={businesses} />}
         />
 
+=======
+>>>>>>> d9364d5de5b289074e287b1b0123c0f6d7f6016b
         <Route
           path="/signup"
           element={<Signup handleSignupOrLogin={handleSignupOrLogin} />}
@@ -101,6 +136,7 @@ const App = () => {
         />
         <Route
           path="/create"
+<<<<<<< HEAD
           element={
             user ? (
               <CreateBusiness handleAddBusiness={handleAddBusiness} />
@@ -129,6 +165,22 @@ const App = () => {
           element={<EditBusiness handleUpdateBusiness={handleUpdateBusiness} />}/>
          <Route> path="/business-details" element={<BusinessDetails/>}
         />
+=======
+          element={user ? <CreateBusiness  handleAddBusiness={handleAddBusiness}  /> : <Navigate to="/login" />}
+          />
+
+          <Route 
+          path="/edit"
+          element={
+            user ? <EditBusiness  handleEditBusiness={handleEditBusiness}  /> : <Navigate to="/login" />}
+          />
+  
+          <Route
+            path='/'
+            element={
+              user ? <Landing handleDeleteBusiness={handleDeleteBusiness} businesses={businesses} user={user} /> : <Navigate to='/login' />}
+          />
+>>>>>>> d9364d5de5b289074e287b1b0123c0f6d7f6016b
       </Routes>
     </>
   );
