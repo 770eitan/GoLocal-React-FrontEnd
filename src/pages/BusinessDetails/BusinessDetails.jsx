@@ -1,6 +1,9 @@
-// import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getDetails } from '../../services/api-calls';
 
-function BusinessCard(props) {
+function BusinessDetails(props) {
+  const 
     return(
     <div className="card">
   
@@ -40,4 +43,4 @@ function BusinessCard(props) {
   )
 }
 
-export default BusinessCard
+export default BusinessDetails
